@@ -1,0 +1,77 @@
+/*You are given a binary tree. You need to print all the nodes which are multiples of root node.
+The nodes which are multiples of the root node should be printed using in-order traversal.*/
+
+import java.util.*;
+class Node{
+    int data;
+    Node left,right;
+
+    Node(int value) {
+        data = value;
+        left = right = null;
+    }
+}
+
+class Tree{
+    Node root;
+
+    Tree() {
+        root = null;
+    }
+
+    // Method to construct a binary tree from the given array (Do not edit the code given below)
+    public Node insertNode(int[] elementsArr, Node node, int i){
+        if(i < elementsArr.length){
+            node = new Node(elementsArr[i]);
+            node.left = insertNode(elementsArr,node.left,2 * i + 1);
+            node.right = insertNode(elementsArr,node.right,2 * i + 2);
+        }
+        return node;
+    }
+
+    // Method to print nodes that are multiple of root node
+    public void printNodes(Node node, int val){
+        if (node == null)
+            return;
+
+        if(val==0){
+            System.out.println("Division by zero is undefined");
+        }
+        else {
+
+            // recursively go to left subtree
+            printNodes(node.left, val);
+
+            // visit the parent node (parent of left & right children)
+                if (node.data % val == 0)
+                    System.out.print(node.data + " ");
+
+            // recursively go to right subtree
+            printNodes(node.right, val);
+        }
+    }
+}
+
+class multiplesOfRootNode{
+    public static void main(String[] x){
+        Tree tree = new Tree();
+
+        Scanner sc = new Scanner(System.in);
+
+        int size;
+        size = sc.nextInt();
+
+        if(size<= 0){
+            System.out.println("Size should be a positive integer");
+        }
+
+        else{
+            int[] elementsArr = new int[size];
+            for(int i = 0; i < size; i++){
+                elementsArr[i] = sc.nextInt();
+            }
+            tree.root = tree.insertNode(elementsArr,tree.root,0);
+            tree.printNodes(tree.root, tree.root.data);
+        }
+    }
+}
