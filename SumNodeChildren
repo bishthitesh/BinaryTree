@@ -11,7 +11,7 @@ int toSumTree(Node node)
    
         // Recursively call for left and right subtrees and store the sum 
         // as new value of this node 
-        node.data+= toSumTree(node.left) + toSumTree(node.right); 
+        node.data= toSumTree(node.left) + toSumTree(node.right)+old_val; 
    
         // Return the sum of values of nodes in left and right subtrees 
         // and old_value of this node 
